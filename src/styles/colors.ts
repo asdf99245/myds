@@ -49,7 +49,7 @@ export const COLORS = {
   /* secondary */
   secondary: PALETTE.blue500,
   secondaryLight: PALETTE.blue400,
-  seconaryDark: PALETTE.blue600,
+  secondaryDark: PALETTE.blue600,
 
   /* black & white */
   black: PALETTE.black,
