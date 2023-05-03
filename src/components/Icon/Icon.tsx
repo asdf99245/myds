@@ -1,10 +1,11 @@
+import { CSSProperties } from 'react';
 import * as icons from 'src/assets/icons';
 
 type IconType = keyof typeof icons;
 
 interface Props {
   icon: IconType;
-  color?: string;
+  color?: CSSProperties['color'];
   size?: string | number;
 }
 

@@ -19,7 +19,7 @@ const meta: Meta<typeof Icon> = {
     color: {
       description: '아이콘의 색상을 설정합니다.',
       table: {
-        type: { summary: "CSSProperties['color']" },
+        type: { summary: "React.CSSProperties['color']" },
       },
       control: { type: 'color' },
     },
