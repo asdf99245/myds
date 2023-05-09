@@ -1,9 +1,10 @@
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ReactNode, useContext } from 'react';
 import { AvatarVariant } from '@@types/variant';
 import { css, useTheme } from '@emotion/react';
 import useAvatarContents from '@hooks/useAvatarContents';
+import { AvatarContext } from './context/AvatarContext';
 
-interface Props {
+export interface Props {
   variant: AvatarVariant;
   size?: number;
   color?: CSSProperties['color'];
@@ -14,6 +15,12 @@ interface Props {
 
 function Avatar({ variant, size = 30, color, imgsrc, name, icon }: Props) {
   const { colors } = useTheme();
+  const avatarContext = useContext(AvatarContext);
+
+  if (avatarContext) {
+    variant = avatarContext.variant;
+    size = avatarContext.size;
+  }
 
   const styles = {
     base: css`
