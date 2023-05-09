@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Icon } from '@components/Icon';
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 
 /**
  * ### Avatar는 사용자나 객체를 표현하기 위한한 개체입니다.
@@ -8,7 +8,7 @@ import Avatar from './Avatar';
  * - 콘텐츠로는 이미지, 아이콘, 텍스트가 포함될 수 있으며 아무것도 전달하지 않을 시 fallback 아이콘이 표시됩니다.
  */
 const meta: Meta<typeof Avatar> = {
-  title: 'Components/Avatar',
+  title: 'Components/Avatar/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   argTypes: {
