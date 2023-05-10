@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 import type { AvatarVariant } from '@@types/variant';
 import styled from '@emotion/styled';
 import { isArray } from '@utils/type.guard.util';
@@ -16,8 +16,8 @@ interface Props {
 function AvatarGroup({ children, variant = 'circle', size = 30, max }: Props) {
   if (!children) return null;
 
-  if (max && max <= 1) {
-    console.error('max props must be greater than 1❗');
+  if (max && max < 1) {
+    console.error('max props must be greater than 0❗');
     return null;
   }
 
@@ -31,21 +31,23 @@ function AvatarGroup({ children, variant = 'circle', size = 30, max }: Props) {
     );
   }
 
+  const elements = children.slice(0, max);
+  if (max && children.length > max) {
+    elements.push(
+      <DummyAvatar variant={variant} size={size}>
+        {`${children.length - max}+`}
+      </DummyAvatar>,
+    );
+  }
+
   return (
     <AvatarContext.Provider value={{ variant, size }}>
       <AvatarList size={size}>
-        {children.slice(0, max).map((avatar, idx) => (
+        {elements.map((element, idx) => (
           <AvatarItem key={idx} variant={variant}>
-            {avatar}
+            {element}
           </AvatarItem>
         ))}
-        {max && children.length > max && (
-          <AvatarItem variant={variant}>
-            <DummyAvatar variant={variant} size={size}>
-              {`${children.length - max}+`}
-            </DummyAvatar>
-          </AvatarItem>
-        )}
       </AvatarList>
     </AvatarContext.Provider>
   );
@@ -64,13 +66,15 @@ const AvatarList = styled.ul<RequiredPick<Props, 'size'>>(({ size }) => ({
   },
 }));
 
-const AvatarItem = styled.li<RequiredPick<Props, 'variant'>>(({ theme, variant }) => ({
-  border: `1px solid ${theme.colors.white}`,
-  borderRadius: `${variantBorderRadius[variant]}`,
-  width: 'fit-content',
-  height: 'fit-content',
-  overflow: 'hidden',
-}));
+const AvatarItem = memo(
+  styled.li<RequiredPick<Props, 'variant'>>(({ theme, variant }) => ({
+    border: `1px solid ${theme.colors.white}`,
+    borderRadius: `${variantBorderRadius[variant]}`,
+    width: 'fit-content',
+    height: 'fit-content',
+    overflow: 'hidden',
+  })),
+);
 
 const DummyAvatar = styled.div<RequiredPick<Props, 'variant' | 'size'>>(({ theme, variant, size }) => ({
   display: 'flex',
