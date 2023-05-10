@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 import type { AvatarVariant } from '@@types/variant';
 import styled from '@emotion/styled';
-import { isArray } from '@utils/util.type.guard';
+import { isArray } from '@utils/type.guard.util';
+import { RequiredPick } from '@utils/type.util';
 import type { Props as AvatarProps } from './Avatar';
 import { AvatarContext } from './context/AvatarContext';
 
@@ -52,7 +53,7 @@ function AvatarGroup({ children, variant = 'circle', size = 30, max }: Props) {
 
 export default AvatarGroup;
 
-const AvatarList = styled.ul<Pick<Required<Props>, 'size'>>(({ size }) => ({
+const AvatarList = styled.ul<RequiredPick<Props, 'size'>>(({ size }) => ({
   display: 'flex',
   width: 'fit-content',
 
@@ -63,7 +64,7 @@ const AvatarList = styled.ul<Pick<Required<Props>, 'size'>>(({ size }) => ({
   },
 }));
 
-const AvatarItem = styled.li<Pick<Required<Props>, 'variant'>>(({ theme, variant }) => ({
+const AvatarItem = styled.li<RequiredPick<Props, 'variant'>>(({ theme, variant }) => ({
   border: `1px solid ${theme.colors.white}`,
   borderRadius: `${variantBorderRadius[variant]}`,
   width: 'fit-content',
@@ -71,7 +72,7 @@ const AvatarItem = styled.li<Pick<Required<Props>, 'variant'>>(({ theme, variant
   overflow: 'hidden',
 }));
 
-const DummyAvatar = styled.div<Pick<Required<Props>, 'variant' | 'size'>>(({ theme, variant, size }) => ({
+const DummyAvatar = styled.div<RequiredPick<Props, 'variant' | 'size'>>(({ theme, variant, size }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
