@@ -1,26 +1,13 @@
-import {
-  ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
-  ElementType,
-  ReactElement,
-  ReactNode,
-  forwardRef,
-} from 'react';
+import { ElementType, ReactElement, forwardRef } from 'react';
+import { EmptyProps, PolymorphicPropsWithRef, PolymorphicRef } from '@utils/type.util';
 
-type Props<T extends ElementType> = {
-  as?: T;
-  children?: ReactNode;
-} & ComponentPropsWithoutRef<T>;
+type Props<T extends ElementType> = PolymorphicPropsWithRef<EmptyProps, T>;
 
-type ComponentType = <T extends ElementType = 'div'>(
-  props: Props<T> & {
-    ref?: ComponentPropsWithRef<T>['ref'];
-  },
-) => ReactElement | null;
+type BoxComponent = <T extends ElementType = 'div'>(props: Props<T>) => ReactElement | null;
 
-const Box: ComponentType = forwardRef(function Box<T extends ElementType = 'div'>(
+const Box: BoxComponent = forwardRef(function Box<T extends ElementType = 'div'>(
   { as, children, ...props }: Props<T>,
-  ref: ComponentPropsWithRef<T>['ref'],
+  ref: PolymorphicRef<T>,
 ) {
   const Component = as || 'div';
 
