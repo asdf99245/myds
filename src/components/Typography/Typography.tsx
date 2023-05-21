@@ -14,7 +14,9 @@ interface TypographyProps {
 
 type Props<T extends ElementType> = PolymorphicProps<TypographyProps, T>;
 
-function Typography<T extends ElementType = 'p'>({
+const DEFAULT_ELEMENT = 'p';
+
+function Typography<T extends ElementType = typeof DEFAULT_ELEMENT>({
   as,
   children,
   variant = 'body1',
@@ -25,7 +27,7 @@ function Typography<T extends ElementType = 'p'>({
   color,
   ...props
 }: Props<T>) {
-  const Component = as || variantMapping[variant] || 'p';
+  const Component = as || variantMapping[variant] || DEFAULT_ELEMENT;
   const { fonts } = useTheme();
 
   return (
