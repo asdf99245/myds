@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Typography from '.';
+import Typography from './Typography';
 
 /**
  * ### 다양한 종류의 텍스트를 표시하기 위한 컴포넌트입니다.
