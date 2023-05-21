@@ -7,6 +7,8 @@ interface TypographyProps {
   variant?: FontVariant;
   fontSize?: CSSProperties['fontSize'];
   fontWeight?: CSSProperties['fontWeight'];
+  lineHeight?: CSSProperties['lineHeight'];
+  letterSpacing?: CSSProperties['letterSpacing'];
   color?: CSSProperties['color'];
 }
 
@@ -18,6 +20,8 @@ function Typography<T extends ElementType = 'p'>({
   variant = 'body1',
   fontSize,
   fontWeight,
+  lineHeight,
+  letterSpacing,
   color,
   ...props
 }: Props<T>) {
@@ -30,8 +34,8 @@ function Typography<T extends ElementType = 'p'>({
         fontFamily: fonts[variant].family,
         fontSize: fontSize || fonts[variant].size,
         fontWeight: fontWeight || fonts[variant].weight,
-        lineHeight: fonts[variant].lineHeight,
-        letterSpacing: fonts[variant].letterSpacing,
+        lineHeight: lineHeight || fonts[variant].lineHeight,
+        letterSpacing: letterSpacing || fonts[variant].letterSpacing,
         color: color || 'inherit',
       }}
       {...props}
